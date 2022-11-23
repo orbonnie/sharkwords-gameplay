@@ -16,7 +16,16 @@ section {
   flex-wrap: wrap;
 }
 
-#play-again {
+.message {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(6, 75, 184);
+  margin: 0.67em 0;
+}
+
+.play-again {
   display: block;
   text-align: center;
   font-weight: bold;

@@ -70,13 +70,14 @@ const handleCorrectGuess = (letter) => {
 // If the shark gets the person (5 wrong guesses), disable
 // all buttons and show the "play again" message.
 
-const handleWrongGuess = () => {
+const handleWrongGuess = (word) => {
   numWrong += 1;
   console.log(document.querySelector('#shark-img-link'))
   document.querySelector('#shark-img-link').src = `/static/images/guess${numWrong}.png`
 
   if (numWrong === 5) {
     disableAllButtons();
+    document.querySelector('#reveal-word').innerHTML = `The word was ${word}`;
     document.querySelector('.play-again').style.display = 'block';
   }
 };
@@ -89,8 +90,9 @@ const resetGame = () => {
 // This is like if __name__ == '__main__' in Python
 //
 (function startGame() {
-  // For now, we'll hardcode the word that the user has to guess.
-  const word = 'hello';
+
+  const word = WORDS[Math.floor(Math.random() * WORDS.length)]
+
 
   createDivsForChars(word);
   generateLetterButtons();
@@ -104,11 +106,14 @@ const resetGame = () => {
       if (isLetterInWord(letter)) {
         handleCorrectGuess(letter);
         if (numRight === word.length) {
-          document.querySelector('#win').style.display = 'block';
+          win_els = document.querySelectorAll('.win')
+          for (let el of win_els) {
+            el.style.display = 'block';
+          }
           disableAllButtons();
         }
       } else {
-        handleWrongGuess();
+        handleWrongGuess(word);
       }
     })
   }
